@@ -15,6 +15,7 @@ services:
       
   mongodb:
     image: "mongo:4.4"
+    container_name: "gray-mongodb"
     volumes:
       - "mongodb_data:/data/db"
       - "mongodb_config:/data/configdb"
@@ -22,6 +23,7 @@ services:
 
   opensearch:
     image: "opensearchproject/opensearch:1"
+    container_name: "gray-opensearch"
     environment:
       - "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g"
       - "bootstrap.memory_lock=true"
@@ -43,6 +45,7 @@ services:
   graylog:
     hostname: "server"
     image: "${GRAYLOG_IMAGE:-graylog/graylog:4.3}"
+    container_name: "gray-graylog"
     depends_on:
       opensearch:
         condition: "service_started"
