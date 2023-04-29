@@ -1,6 +1,18 @@
 version: "3.8"
 
 services:
+  cadvisor:
+    image: "gcr.io/cadvisor/cadvisor:v0.47.0"
+    container_name: "gray-cadvisor"
+    restart: unless-stopped
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    ports:
+      - 8080:8080
+      
   mongodb:
     image: "mongo:4.4"
     volumes:
